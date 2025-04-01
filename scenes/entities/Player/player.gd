@@ -1,7 +1,16 @@
 extends CharacterBody2D
+@onready var screen_size: Vector2 = get_viewport_rect().size
+var is_moving_to_position: bool   = false
+var target_position: Vector2      = Vector2.ZERO
+var move_speed: int               = 300
 
 func _ready() -> void:
 	GameManager.connect("game_started", Callable(self, "_on_game_started"))
 
 func _on_game_started() -> void:
-	print("hello, world!")
+	# Calculate target position at right edge and tween movement
+	var target_x: float = screen_size.x
+	var distance: float = target_x - position.x
+	var duration: float = distance / move_speed if distance > 0 else 0.0
+	var tween: Tween    = create_tween()
+	tween.tween_property(self, "position:x", target_x, duration)

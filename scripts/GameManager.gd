@@ -87,19 +87,11 @@ func unpause_game() -> void:
 		emit_signal("game_unpaused")
 		
 func _ready():
-	connect("health_changed", Callable(self, "_on_health_changed"))
-	connect("time_of_day_changed", Callable(self, "_on_time_of_day_changed"))
-	connect("game_started", Callable(self, "_on_game_started"))
-	connect("game_stopped", Callable(self, "_on_game_stopped"))
-	connect("game_paused", Callable(self, "_on_game_paused"))
-	connect("game_unpaused", Callable(self, "_on_game_unpaused"))
-	connect("cycle_progress_changed", Callable(self, "_on_cycle_progress_changed"))
-	
 	# Set up timer to start game after 5 seconds
 	start_timer = Timer.new()
 	add_child(start_timer)
-	start_timer.wait_time = 5.0
+	start_timer.wait_time = 3.0
 	start_timer.one_shot = true
 	start_timer.timeout.connect(start_game)
 	start_timer.start()
-	print("Game will start in 5 seconds")
+	print("Game will start in 3 seconds")
