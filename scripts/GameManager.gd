@@ -85,13 +85,3 @@ func unpause_game() -> void:
 	if game_running and is_game_paused:
 		is_game_paused = false
 		emit_signal("game_unpaused")
-		
-func _ready():
-	# Set up timer to start game after 5 seconds
-	start_timer = Timer.new()
-	add_child(start_timer)
-	start_timer.wait_time = 3.0
-	start_timer.one_shot = true
-	start_timer.timeout.connect(start_game)
-	start_timer.start()
-	print("Game will start in 3 seconds")
