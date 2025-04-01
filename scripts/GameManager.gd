@@ -17,10 +17,20 @@ var cycle_duration_in_minutes := 3.0
 var game_running   := false
 var is_game_paused := false
 var last_emitted_progress := -1.0
+var start_timer: Timer
 
 func _set_player_health(new_health: int) -> void:
 	player_health = new_health
 	emit_signal("health_changed", player_health)
+
+func get_player_health() -> int:
+	return player_health
+
+func set_player_health(new_health: int) -> void:
+	_set_player_health(new_health)
+
+func get_time_passed() -> float:
+	return time_passed
 
 func _process(delta) -> void:
 	if not game_running or is_game_paused:
@@ -58,11 +68,13 @@ func start_game() -> void:
 	if not game_running:
 		game_running = true
 		emit_signal("game_started")
+		print("Game started")
 		
 func stop_game() -> void:
 	if game_running:
 		game_running = false
 		emit_signal("game_stopped")
+		print("Game stopped")
 	
 func pause_game() -> void:
 	if game_running and not is_game_paused:
@@ -82,4 +94,12 @@ func _ready():
 	connect("game_paused", Callable(self, "_on_game_paused"))
 	connect("game_unpaused", Callable(self, "_on_game_unpaused"))
 	connect("cycle_progress_changed", Callable(self, "_on_cycle_progress_changed"))
-
+	
+	# Set up timer to start game after 5 seconds
+	start_timer = Timer.new()
+	add_child(start_timer)
+	start_timer.wait_time = 5.0
+	start_timer.one_shot = true
+	start_timer.timeout.connect(start_game)
+	start_timer.start()
+	print("Game will start in 5 seconds")
