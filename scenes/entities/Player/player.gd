@@ -1,7 +1,5 @@
 extends CharacterBody2D
 @onready var screen_size: Vector2 = get_viewport_rect().size
-var is_moving_to_position: bool   = false
-var target_position: Vector2      = Vector2.ZERO
 var move_speed: int               = 300
 
 func _ready() -> void:
