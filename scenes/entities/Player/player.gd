@@ -1,20 +1,32 @@
 extends CharacterBody2D
 @onready var screen_size: Vector2 = get_viewport_rect().size
-var move_speed: int               = 300
+var move_speed: int               = 7.5
+var move_direction: Vector2       = Vector2.ZERO
 
 func _ready() -> void:
-	GameManager.connect("game_started", Callable(self, "_on_game_started"))
-	GameManager.start_game()
+	pass
 
-func _on_game_started() -> void:
-	# Calculate target position at right edge and tween movement
-	var target_x: float = screen_size.x
-	var distance: float = target_x - position.x
-	var duration: float = distance / move_speed if distance > 0 else 0.0
-	var tween: Tween    = create_tween()
-	tween.tween_property(self, "position:x", target_x, duration)
-	tween.connect("finished", Callable(self, "_on_tween_finished"))
 
-func _on_tween_finished() -> void:
-	if position.x >= screen_size.x:
-		GameManager.stop_game()
+func _physics_process(delta: float) -> void:
+	var current_move_direction: Vector2 = Vector2.ZERO
+	if Input.is_action_pressed("move_left"):
+		current_move_direction += Vector2.LEFT * Input.get_action_strength("move_left")
+	
+	if Input.is_action_pressed("move_right"):
+		current_move_direction += Vector2.RIGHT * Input.get_action_strength("move_right")
+		
+	if Input.is_action_pressed("move_up"):
+		current_move_direction += Vector2.UP * Input.get_action_strength("move_up")
+		
+	if Input.is_action_pressed("move_down"):
+		current_move_direction += Vector2.DOWN * Input.get_action_strength("move_down")
+	
+	move_direction = current_move_direction.normalized()
+
+
+func _process(delta: float) -> void:
+	move()
+
+
+func move() -> void:
+	self.global_position += move_direction * move_speed
