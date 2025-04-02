@@ -18,6 +18,7 @@ var game_running   := false
 var is_game_paused := false
 var last_emitted_progress := -1.0
 var start_timer: Timer
+var current_level: int = 1  # New variable to track the current level
 
 func _set_player_health(new_health: int) -> void:
 	player_health = new_health
@@ -31,6 +32,15 @@ func set_player_health(new_health: int) -> void:
 
 func get_time_passed() -> float:
 	return time_passed
+
+func get_current_level() -> int:
+	return current_level
+
+func set_current_level(level: int) -> void:
+	current_level = level
+
+func is_game_active() -> bool:
+	return game_running and not is_game_paused
 
 func _process(delta) -> void:
 	if not game_running or is_game_paused:
@@ -67,6 +77,7 @@ func get_cycle_progress() -> float:
 func start_game() -> void:
 	if not game_running:
 		game_running = true
+		is_game_paused = false  # Ensure the game starts unpaused
 		emit_signal("game_started")
 		print("Game started")
 		
@@ -85,3 +96,16 @@ func unpause_game() -> void:
 	if game_running and is_game_paused:
 		is_game_paused = false
 		emit_signal("game_unpaused")
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		_toggle_pause()
+
+func _toggle_pause() -> void:
+	if is_game_paused:
+		unpause_game()
+	else:
+		pause_game()
+
+func _ready() -> void:
+	start_game()

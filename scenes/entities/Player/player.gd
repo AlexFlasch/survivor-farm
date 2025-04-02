@@ -7,6 +7,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if not get_tree().root.get_node("GameManager").is_game_active():
+		return
+	
 	var current_move_direction: Vector2 = Vector2.ZERO
 	if Input.is_action_pressed("move_left"):
 		current_move_direction += Vector2.LEFT * Input.get_action_strength("move_left")
@@ -24,6 +27,9 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(delta: float) -> void:
+	if not get_tree().root.get_node("GameManager").is_game_active():
+		return
+	
 	move()
 
 

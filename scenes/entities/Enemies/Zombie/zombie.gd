@@ -8,6 +8,9 @@ func _ready() -> void:
 	player = get_parent().get_node("Player")
 
 func _process(delta: float) -> void:
+	if not get_tree().root.get_node("GameManager").is_game_active():
+		return
+	
 	if player:
 		var direction: Vector2 = (player.global_position - global_position).normalized()
 		var distance_to_player: float = global_position.distance_to(player.global_position)
