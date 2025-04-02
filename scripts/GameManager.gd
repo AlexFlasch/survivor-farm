@@ -13,7 +13,7 @@ signal cycle_progress_changed(progress: float)
 var player_health: int = 100
 var time_of_day: TimeOfDay = TimeOfDay.DAY
 var time_passed := 0.0
-var cycle_duration_in_minutes := 3.0
+var cycle_duration_in_minutes := 0.5
 var game_running   := false
 var is_game_paused := false
 var last_emitted_progress := -1.0
@@ -63,9 +63,14 @@ func _process(delta) -> void:
 func _toggle_time_of_day():
 	if time_of_day == TimeOfDay.DAY:
 		time_of_day = TimeOfDay.NIGHT
+		emit_signal("time_of_day_changed", time_of_day)
+		print("Announcement: Day has ended, night has begun.")
 	else:
 		time_of_day = TimeOfDay.DAY
-	emit_signal("time_of_day_changed", time_of_day)
+		current_level += 1  # Increment level when night turns into day
+		emit_signal("time_of_day_changed", time_of_day)
+		print("Announcement: Night has ended, day has started.")
+		print("Announcement: Level increased to %d" % current_level)
 	
 func get_cycle_progress() -> float:
 	"""
