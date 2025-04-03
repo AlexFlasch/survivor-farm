@@ -15,6 +15,10 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	var current_move_vector: Vector2 = Vector2.ZERO
+	
+	if not get_tree().root.get_node("GameManager").is_game_active():
+		return
+	
 	if Input.is_action_pressed("move_left"):
 		move_direction = DIRECTION.LEFT
 		current_move_vector += Vector2.LEFT * Input.get_action_strength("move_left")
@@ -35,6 +39,9 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(delta: float) -> void:
+	if not get_tree().root.get_node("GameManager").is_game_active():
+		return
+
 	if move_vector == Vector2.ZERO:
 		idle()
 	else:

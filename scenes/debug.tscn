@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://chj2u37shqmi8"]
+[gd_scene load_steps=3 format=3 uid="uid://chj2u37shqmi8"]
 
 [ext_resource type="PackedScene" uid="uid://byigjt33mk7ib" path="res://scenes/entities/Player/Player.tscn" id="1_lgrwq"]
+[ext_resource type="PackedScene" uid="uid://dmirppl86plxh" path="res://scenes/entities/Enemies/Zombie/Zombie.tscn" id="2_4pmxj"]
 
 [node name="Debug" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_lgrwq")]
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_4pmxj")]
+position = Vector2(400, 394)
