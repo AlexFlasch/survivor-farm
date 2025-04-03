@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="survivor-farm"
-run/main_scene="uid://chj2u37shqmi8"
+run/main_scene="uid://dnuos85rsws6n"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/icon.svg"
 
@@ -19,6 +19,10 @@ config/icon="res://assets/icon.svg"
 
 GameManager="*res://scripts/GameManager.gd"
 PoolManager="*res://scripts/PoolManager.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
 
 [input]
 
@@ -46,6 +50,14 @@ move_down={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":1,"axis_value":1.0,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="player_projectiles"
+2d_physics/layer_3="enemies"
+2d_physics/layer_4="enemy_projectiles"
+2d_physics/layer_5="terrain"
 
 [rendering]
 
