@@ -1,8 +1,7 @@
 extends CharacterBody2D
 
-@export var follow_speed: float = 150.0
+@export var follow_speed: float = 10.0
 @export var stop_distance: float = 10.0
-@export var bounce_distance: float = 20.0  # New variable for bounce distance
 
 # New variables for stunned state
 var is_stunned: bool = false
