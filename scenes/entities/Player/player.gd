@@ -9,9 +9,13 @@ var move_speed: int                   = 100
 var move_vector: Vector2              = Vector2.ZERO
 var move_direction: DIRECTION         = DIRECTION.DOWN
 
-func _ready() -> void:
-	pass
+var gm: Node = null
 
+func _ready() -> void:
+	gm = get_tree().root.get_node("GameManager")
+	if not gm == null:
+		gm.set_player(self)
+		gm.connect("health_changed", Callable(self, "_on_health_changed"))
 
 func _physics_process(delta: float) -> void:
 	var current_move_vector: Vector2 = Vector2.ZERO
@@ -73,3 +77,14 @@ func move() -> void:
 	
 	self.velocity = move_vector * move_speed
 	self.move_and_slide()
+
+
+func die() -> void:
+	sprite.play("die")
+	if not gm == null:
+		gm.stop_game()
+
+func _on_health_changed(health: int) -> void:
+	print("Player notified: Health changed to %d" % health)
+	if health <= 0:
+		die()

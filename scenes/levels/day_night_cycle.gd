@@ -32,5 +32,5 @@ func _update_color(progress: float):
 		self.color = DAY_COLOR.lerp(NIGHT_COLOR, progress)
 	else:
 		# Adjust the progress to stay darker longer during the night
-		var adjusted_progress = (progress - 0.5) * 2 if progress > 0.5 else 0
+		var adjusted_progress: float = (progress - 0.5) * 2.0 if progress > 0.5 else 0.0
 		self.color = NIGHT_COLOR.lerp(DAY_COLOR, adjusted_progress)

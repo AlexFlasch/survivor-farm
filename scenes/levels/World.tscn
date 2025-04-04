@@ -28,5 +28,4 @@ position = Vector2(572, 298)
 script = ExtResource("3_efo0y")
 
 [node name="Zombie" parent="." instance=ExtResource("4_ps7a7")]
-position = Vector2(431, 278)
-follow_speed = 25.0
+position = Vector2(414, 241)

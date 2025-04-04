@@ -19,6 +19,7 @@ var is_game_paused := false
 var last_emitted_progress := -1.0
 var start_timer: Timer
 var current_level: int = 1  # New variable to track the current level
+var player: Node2D = null  # New variable to store the player reference
 
 func _set_player_health(new_health: int) -> void:
 	player_health = new_health
@@ -38,6 +39,9 @@ func get_current_level() -> int:
 
 func set_current_level(level: int) -> void:
 	current_level = level
+
+func set_player(p: Node2D) -> void:
+	player = p
 
 func is_game_active() -> bool:
 	return game_running and not is_game_paused

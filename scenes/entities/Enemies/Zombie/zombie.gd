@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@export var follow_speed: float = 10.0
-@export var stop_distance: float = 10.0
+@export var follow_speed: float = 20.0
+@export var stop_distance: float = 0.0
 
 # New variables for stunned state
 var is_stunned: bool = false
@@ -11,7 +11,7 @@ var stun_time_left: float = 0.0
 var player: Node2D
 
 func _ready() -> void:
-	player = get_parent().get_node("Player")
+	player = get_tree().root.get_node("GameManager").player
 
 func _process(delta: float) -> void:
 	# Skip movement if stunned
@@ -32,5 +32,11 @@ func _process(delta: float) -> void:
 			if collision_info:
 				var collider: Object = collision_info.get_collider()
 				if collider == player:
+					print("Zombie collided with player!")
+					get_tree().root.get_node("GameManager").set_player_health(get_tree().root.get_node("GameManager").get_player_health() - 100)
+					queue_free()
 					return
+				else:
+					# Handle collision with other objects
+					print("Collided with: ", collider)
 			global_position += direction * follow_speed * delta

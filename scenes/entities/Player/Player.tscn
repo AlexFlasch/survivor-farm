@@ -319,7 +319,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dalap")
 }],
-"loop": true,
+"loop": false,
 "name": &"die",
 "speed": 5.0
 }, {
@@ -576,7 +576,7 @@ shape = SubResource("RectangleShape2D_ow51e")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qiynf")
-animation = &"idle_left"
+animation = &"die"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.5, 2.5)
