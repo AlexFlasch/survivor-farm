@@ -14,6 +14,9 @@ func _ready() -> void:
 	player = get_tree().root.get_node("GameManager").player
 
 func _process(delta: float) -> void:
+	if not get_tree().root.get_node("GameManager").is_game_active():
+		return
+
 	# Skip movement if stunned
 	if is_stunned:
 		stun_time_left -= delta
@@ -21,8 +24,6 @@ func _process(delta: float) -> void:
 			is_stunned = false
 		return
 	
-	if not get_tree().root.get_node("GameManager").is_game_active():
-		return
 	
 	if player:
 		var direction: Vector2 = (player.global_position - global_position).normalized()
@@ -33,8 +34,8 @@ func _process(delta: float) -> void:
 				var collider: Object = collision_info.get_collider()
 				if collider == player:
 					print("Zombie collided with player!")
-					get_tree().root.get_node("GameManager").set_player_health(get_tree().root.get_node("GameManager").get_player_health() - 100)
-					queue_free()
+					get_tree().root.get_node("GameManager").set_player_health(get_tree().root.get_node("GameManager").get_player_health() - 10)
+					stun_time_left = stun_duration
 					return
 				else:
 					# Handle collision with other objects
