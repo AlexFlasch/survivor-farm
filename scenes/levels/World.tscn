@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=4 uid="uid://dnuos85rsws6n"]
+[gd_scene load_steps=4 format=4 uid="uid://dnuos85rsws6n"]
 
 [ext_resource type="TileSet" uid="uid://bw74o4f1m48c5" path="res://resources/tilesets/FarmTileset.tres" id="1_v31nu"]
 [ext_resource type="PackedScene" uid="uid://byigjt33mk7ib" path="res://scenes/entities/Player/Player.tscn" id="2_sgwbd"]
+[ext_resource type="Script" uid="uid://xfp6xjuqjvec" path="res://scenes/levels/day_night_cycle.gd" id="3_efo0y"]
 
 [node name="World" type="Node2D"]
 
@@ -21,3 +22,6 @@ tile_set = ExtResource("1_v31nu")
 
 [node name="Player" parent="." instance=ExtResource("2_sgwbd")]
 position = Vector2(572, 298)
+
+[node name="DayNightCycle" type="CanvasModulate" parent="."]
+script = ExtResource("3_efo0y")
