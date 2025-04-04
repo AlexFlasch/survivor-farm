@@ -36,6 +36,7 @@ func _process(delta: float) -> void:
 					print("Zombie collided with player!")
 					get_tree().root.get_node("GameManager").set_player_health(get_tree().root.get_node("GameManager").get_player_health() - 10)
 					stun_time_left = stun_duration
+					is_stunned = true
 					return
 				else:
 					# Handle collision with other objects
