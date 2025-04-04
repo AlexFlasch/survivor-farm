@@ -9,6 +9,7 @@ signal game_stopped
 signal game_paused
 signal game_unpaused
 signal cycle_progress_changed(progress: float)
+signal player_died  # New signal for player death
 
 var player_health: int = 100
 var time_of_day: TimeOfDay = TimeOfDay.DAY
@@ -105,6 +106,10 @@ func unpause_game() -> void:
 	if game_running and is_game_paused:
 		is_game_paused = false
 		emit_signal("game_unpaused")
+
+func handle_player_death() -> void:
+	emit_signal("player_died")  # Emit signal that player died
+	stop_game()  # Then stop the game
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):

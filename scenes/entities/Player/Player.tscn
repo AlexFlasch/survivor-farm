@@ -1,7 +1,8 @@
-[gd_scene load_steps=77 format=3 uid="uid://byigjt33mk7ib"]
+[gd_scene load_steps=78 format=3 uid="uid://byigjt33mk7ib"]
 
 [ext_resource type="Script" uid="uid://n7sbtrl3t7qd" path="res://scenes/entities/Player/player.gd" id="1_ow51e"]
 [ext_resource type="Texture2D" uid="uid://b3ret13eomec3" path="res://assets/sprites/player/player_spritesheet.png" id="2_ow51e"]
+[ext_resource type="Script" uid="uid://xypau7726dq3" path="res://scenes/entities/Player/character_light.gd" id="3_tqasf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ow51e"]
 size = Vector2(8, 7)
@@ -595,3 +596,4 @@ zoom = Vector2(2.5, 2.5)
 energy = 2.0
 texture = SubResource("GradientTexture2D_tqasf")
 texture_scale = 0.7
+script = ExtResource("3_tqasf")

@@ -39,7 +39,10 @@ func _physics_process(delta: float) -> void:
 		move_direction = DIRECTION.DOWN
 		current_move_vector += Vector2.DOWN * Input.get_action_strength("move_down")
 	
-	move_vector = current_move_vector.normalized()
+	if current_move_vector != Vector2.ZERO:
+		move_vector = current_move_vector / current_move_vector.length()
+	else:
+		move_vector = Vector2.ZERO
 
 
 func _process(delta: float) -> void:
@@ -82,7 +85,7 @@ func move() -> void:
 func die() -> void:
 	sprite.play("die")
 	if not gm == null:
-		gm.stop_game()
+		gm.handle_player_death() 
 
 func _on_health_changed(health: int) -> void:
 	print("Player notified: Health changed to %d" % health)
