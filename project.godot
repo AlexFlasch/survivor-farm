@@ -18,7 +18,6 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 GameManager="*res://scripts/GameManager.gd"
-PoolManager="*res://scripts/PoolManager.gd"
 
 [editor_plugins]
 
