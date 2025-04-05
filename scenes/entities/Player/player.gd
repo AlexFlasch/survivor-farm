@@ -15,10 +15,9 @@ var is_bouncing: bool = false
 var bounce_timer: float = 0.0
 const BOUNCE_DURATION: float = 0.2
 
-var gm: Node = null
+@onready var gm: Node = get_tree().root.get_node("GameManager")
 
 func _ready() -> void:
-	gm = get_tree().root.get_node("GameManager")
 	if not gm == null:
 		gm.set_player(self)
 		gm.connect("health_changed", Callable(self, "_on_health_changed"))

@@ -3,10 +3,15 @@ extends Node2D
 @export var spawns: Array[EnemyData] = []
 
 @onready var player: Node2D = get_tree().root.get_node("GameManager").player
+@onready var gm: Node = get_tree().root.get_node("GameManager")
 
 var time: int = 0
 
 func _on_timer_timeout() -> void:
+	# Check if game is paused or not running; if so, do not spawn enemies.
+	if not gm.game_running or gm.is_game_paused:
+		return
+		
 	time += 1
 	for spawn in spawns:
 		if time >= spawn.time_start and time <= spawn.time_end:
@@ -44,4 +49,3 @@ func get_random_position() -> Vector2:
 	elif spawn_side == "right":
 		random_position = Vector2(top_right.x, randf_range(top_right.y, bottom_right.y))
 	return random_position
-	
