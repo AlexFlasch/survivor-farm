@@ -17,7 +17,7 @@ func register_pool(pool_name: String, pool_size: int, scene_path: PackedScene) -
 	scenes[pool_name] = scene_path
 	
 func get_from_pool(pool_name: String) -> Node:
-	if pool_name not in pools:
+	if not pool_name in pools:
 		print("Pool not found: ", pool_name)
 		return null
 	var pool: Array = pools[pool_name]
