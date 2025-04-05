@@ -9,6 +9,12 @@ var move_speed: int                   = 100
 var move_vector: Vector2              = Vector2.ZERO
 var move_direction: DIRECTION         = DIRECTION.DOWN
 
+# New bounce variables
+var bounce_velocity: Vector2 = Vector2.ZERO
+var is_bouncing: bool = false
+var bounce_timer: float = 0.0
+const BOUNCE_DURATION: float = 0.2
+
 var gm: Node = null
 
 func _ready() -> void:
@@ -18,6 +24,18 @@ func _ready() -> void:
 		gm.connect("health_changed", Callable(self, "_on_health_changed"))
 
 func _physics_process(delta: float) -> void:
+	# If bouncing, override normal input movement
+	if is_bouncing:
+		self.velocity = bounce_velocity
+		self.move_and_slide()
+		bounce_timer -= delta
+		bounce_velocity = bounce_velocity.slerp(Vector2.ZERO, delta * 5)
+		if bounce_timer <= 0:
+			is_bouncing = false
+			bounce_velocity = Vector2.ZERO
+		return
+	
+	# ...existing input processing code...
 	var current_move_vector: Vector2 = Vector2.ZERO
 	
 	if not get_tree().root.get_node("GameManager").is_game_active():
@@ -43,7 +61,10 @@ func _physics_process(delta: float) -> void:
 		move_vector = current_move_vector / current_move_vector.length()
 	else:
 		move_vector = Vector2.ZERO
-
+	
+	# Use the normal move
+	self.velocity = move_vector * move_speed
+	self.move_and_slide()
 
 func _process(delta: float) -> void:
 	if not get_tree().root.get_node("GameManager").is_game_active():
@@ -91,3 +112,9 @@ func _on_health_changed(health: int) -> void:
 	print("Player notified: Health changed to %d" % health)
 	if health <= 0:
 		die()
+
+# New method to initiate bounce
+func apply_bounce(bounce_force: Vector2) -> void:
+	bounce_velocity = bounce_force
+	is_bouncing = true
+	bounce_timer = BOUNCE_DURATION

@@ -9,6 +9,7 @@ size = Vector2(32, 32)
 [node name="Zombie" type="CharacterBody2D"]
 scale = Vector2(0.28, 0.28)
 script = ExtResource("1_s81de")
+damage = 30
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
