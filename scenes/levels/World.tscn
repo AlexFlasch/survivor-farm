@@ -1,8 +1,20 @@
-[gd_scene load_steps=4 format=4 uid="uid://dnuos85rsws6n"]
+[gd_scene load_steps=8 format=4 uid="uid://dnuos85rsws6n"]
 
 [ext_resource type="TileSet" uid="uid://bw74o4f1m48c5" path="res://resources/tilesets/FarmTileset.tres" id="1_v31nu"]
 [ext_resource type="PackedScene" uid="uid://byigjt33mk7ib" path="res://scenes/entities/Player/Player.tscn" id="2_sgwbd"]
 [ext_resource type="Script" uid="uid://xfp6xjuqjvec" path="res://scenes/levels/day_night_cycle.gd" id="3_efo0y"]
+[ext_resource type="PackedScene" uid="uid://b0imqsniiwk8a" path="res://scenes/utilities/enemy_spawner.tscn" id="4_ps7a7"]
+[ext_resource type="Script" uid="uid://b4p8bgmd8wo27" path="res://scripts/EnemyData.gd" id="5_ku22y"]
+[ext_resource type="PackedScene" uid="uid://dmirppl86plxh" path="res://scenes/entities/Enemies/Zombie/Zombie.tscn" id="6_1mg1y"]
+
+[sub_resource type="Resource" id="Resource_nhw2q"]
+script = ExtResource("5_ku22y")
+time_start = 0
+time_end = 60
+enemy = ExtResource("6_1mg1y")
+enemy_num = 1
+enemy_spawn_delay = 1
+metadata/_custom_type_script = "uid://b4p8bgmd8wo27"
 
 [node name="World" type="Node2D"]
 
@@ -25,3 +37,6 @@ position = Vector2(572, 298)
 
 [node name="DayNightCycle" type="CanvasModulate" parent="."]
 script = ExtResource("3_efo0y")
+
+[node name="EnemySpawner" parent="." instance=ExtResource("4_ps7a7")]
+spawns = Array[ExtResource("5_ku22y")]([SubResource("Resource_nhw2q")])

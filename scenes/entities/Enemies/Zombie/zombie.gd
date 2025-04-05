@@ -10,9 +10,10 @@ var stun_duration: float = 1.0  # seconds
 var stun_time_left: float = 0.0
 
 var player: CharacterBody2D
+@onready var gm: Node = get_tree().root.get_node("GameManager")
 
-func _ready() -> void:
-	player = get_tree().root.get_node("GameManager").player
+func set_player(p: CharacterBody2D) -> void:
+	player = p
 
 func _process(delta: float) -> void:
 	if not get_tree().root.get_node("GameManager").is_game_active():
@@ -34,7 +35,6 @@ func _process(delta: float) -> void:
 				var collider: Object = collision_info.get_collider()
 				if collider == player:
 					print("Zombie collided with player!")
-					var gm = get_tree().root.get_node("GameManager")
 					gm.set_player_health(gm.get_player_health() - damage)  # Use adjustable damage
 					# Apply bounce to the player based on damage value
 					if player.has_method("apply_bounce"):
@@ -43,7 +43,4 @@ func _process(delta: float) -> void:
 					stun_time_left = stun_duration
 					is_stunned = true
 					return
-				else:
-					# Handle collision with other objects
-					print("Collided with: ", collider)
 			global_position += direction * follow_speed * delta
