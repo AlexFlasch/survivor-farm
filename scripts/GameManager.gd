@@ -10,7 +10,6 @@ signal game_paused
 signal game_unpaused
 signal cycle_progress_changed(progress: float)
 signal player_died
-signal player_collision(collision_info: Object)
 
 var player_health: int = 100
 var time_of_day: TimeOfDay = TimeOfDay.DAY
@@ -44,9 +43,6 @@ func set_current_level(level: int) -> void:
 
 func set_player(p: Node2D) -> void:
 	player = p
-
-func set_player_collision(collision_info: Object) -> void:
-	emit_signal("player_collision", collision_info)
 
 func is_game_active() -> bool:
 	return game_running and not is_game_paused
