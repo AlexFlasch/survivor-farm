@@ -23,6 +23,9 @@ func _ready() -> void:
 		gm.connect("health_changed", Callable(self, "_on_health_changed"))
 
 func _physics_process(delta: float) -> void:
+	if not get_tree().root.get_node("GameManager").is_game_active():
+		return
+
 	# If bouncing, override normal input movement
 	if is_bouncing:
 		self.velocity = bounce_velocity
@@ -35,9 +38,6 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var current_move_vector: Vector2 = Vector2.ZERO
-	
-	if not get_tree().root.get_node("GameManager").is_game_active():
-		return
 	
 	if Input.is_action_pressed("move_left"):
 		move_direction = DIRECTION.LEFT

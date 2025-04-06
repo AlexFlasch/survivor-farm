@@ -46,7 +46,7 @@ func _process(delta: float) -> void:
 				if collider == player:
 					gm.set_player_health(gm.get_player_health() - base_damage)  # Use adjustable damage
 					# Apply bounce to the player based on damage value
-					if player.has_method("apply_bounce"):
+					if player.has_method("apply_bounce") and not player.is_bouncing:
 						var bounce_vector: Vector2 = (player.global_position - global_position).normalized() * base_damage
 						player.apply_bounce(bounce_vector)
 					stun_time_left = stun_duration
