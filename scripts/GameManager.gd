@@ -99,11 +99,13 @@ func stop_game() -> void:
 	
 func pause_game() -> void:
 	if game_running and not is_game_paused:
+		get_tree().paused = true
 		is_game_paused = true
 		emit_signal("game_paused")
 		
 func unpause_game() -> void:
 	if game_running and is_game_paused:
+		get_tree().paused = false
 		is_game_paused = false
 		emit_signal("game_unpaused")
 
