@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="survivor-farm"
-run/main_scene="uid://dnuos85rsws6n"
+run/main_scene="uid://r6dj7hhmhdvt"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/icon.svg"
 
