@@ -18,6 +18,7 @@ class_name EnemyData
 @export var base_damage: float = 1.0
 @export var base_speed: float = 20.0
 @export var stun_duration: float = 1.0
+@export var stop_distance: float = 0.0
 
 # --- Runtime Variables ---
 var spawn_delay_counter: int = 0

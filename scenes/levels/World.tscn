@@ -9,11 +9,18 @@
 
 [sub_resource type="Resource" id="Resource_nhw2q"]
 script = ExtResource("5_ku22y")
+enemy = ExtResource("6_1mg1y")
 time_start = 0
 time_end = 60
-enemy = ExtResource("6_1mg1y")
 enemy_num = 1
 enemy_spawn_delay = 1
+spawn_day = true
+spawn_night = true
+base_health = 1.0
+base_damage = 1.0
+base_speed = 20.0
+stun_duration = 1.0
+stop_distance = 0.0
 metadata/_custom_type_script = "uid://b4p8bgmd8wo27"
 
 [node name="World" type="Node2D"]

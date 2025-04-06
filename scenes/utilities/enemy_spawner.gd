@@ -28,6 +28,15 @@ func _on_timer_timeout() -> void:
 					enemy.set_position(get_random_position())
 					if enemy.has_method("set_player"):
 						enemy.set_player(player)
+					# Set enemy speed based on EnemyData.base_speed
+					if enemy.has_method("set_speed"):
+						enemy.set_speed(spawn.base_speed)
+					# Set enemy health based on EnemyData.base_health
+					if enemy.has_method("set_health"):
+						enemy.set_health(spawn.base_health)
+					# Set enemy damage based on EnemyData.base_damage
+					if enemy.has_method("set_damage"):
+						enemy.set_damage(spawn.base_damage)
 					get_tree().root.add_child(enemy)
 					counter += 1
 			
