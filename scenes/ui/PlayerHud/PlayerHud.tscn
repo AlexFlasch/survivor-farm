@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://b06yndde087e3"]
+
+[ext_resource type="Script" uid="uid://16dvf0i3412x" path="res://scenes/ui/PlayerHud/player_hud.gd" id="1_keqpk"]
+[ext_resource type="PackedScene" uid="uid://ctwbjkct33uh8" path="res://scenes/ui/ExpBar/ExpBar.tscn" id="1_s5bjq"]
+[ext_resource type="FontFile" uid="uid://bv4fh5m584j32" path="res://assets/fonts/slkscr.ttf" id="2_keqpk"]
+[ext_resource type="Texture2D" uid="uid://dbpgcrvpvl8ds" path="res://assets/sprites/ui/panel-border-029.png" id="3_g2173"]
+[ext_resource type="Shader" uid="uid://cmnrl4ijw1asn" path="res://resources/shaders/ExpBar.gdshader" id="3_gav4w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g2173"]
+bg_color = Color(0, 0, 0, 0.360784)
+
+[sub_resource type="Gradient" id="Gradient_vrvlr"]
+offsets = PackedFloat32Array(0.5, 0.55, 0.6)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jl4ox"]
+noise_type = 2
+frequency = 0.0297
+cellular_return_type = 6
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ivccb"]
+height = 16
+in_3d_space = true
+color_ramp = SubResource("Gradient_vrvlr")
+noise = SubResource("FastNoiseLite_jl4ox")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g2173"]
+shader = ExtResource("3_gav4w")
+shader_parameter/progress = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_ivccb")
+shader_parameter/tile_factor = Vector2(256, 16)
+shader_parameter/tile_offset = Vector2(0, 0)
+shader_parameter/speed = 0.1
+shader_parameter/base_color = Color(0.865513, 0.222796, 0.218236, 1)
+shader_parameter/shine_color = Color(0.48, 0.048, 0.1416, 1)
+
+[node name="PlayerHud" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g2173")
+script = ExtResource("1_keqpk")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="HealthBar" parent="MarginContainer/HBoxContainer" instance=ExtResource("1_s5bjq")]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("3_g2173")
+bar_material = SubResource("ShaderMaterial_g2173")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="LevelLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_keqpk")
+text = "Level"
+horizontal_alignment = 1
+
+[node name="PlayerLevel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_keqpk")
+text = "1"
+horizontal_alignment = 1
+
+[node name="ExpBar" parent="MarginContainer/HBoxContainer" instance=ExtResource("1_s5bjq")]
+unique_name_in_owner = true
+layout_mode = 2
+show_value = false

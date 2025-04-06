@@ -22,7 +22,7 @@ PoolManager="*res://scripts/PoolManager.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=75 format=3 uid="uid://byigjt33mk7ib"]
+[gd_scene load_steps=76 format=3 uid="uid://byigjt33mk7ib"]
 
 [ext_resource type="Script" uid="uid://n7sbtrl3t7qd" path="res://scenes/entities/Player/player.gd" id="1_ow51e"]
 [ext_resource type="Texture2D" uid="uid://b3ret13eomec3" path="res://assets/sprites/player/player_spritesheet.png" id="2_ow51e"]
+[ext_resource type="PackedScene" uid="uid://b06yndde087e3" path="res://scenes/ui/PlayerHud/PlayerHud.tscn" id="3_tqasf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ow51e"]
 size = Vector2(8, 7)
@@ -580,3 +581,7 @@ animation = &"idle_left"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.5, 2.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerHud" parent="CanvasLayer" instance=ExtResource("3_tqasf")]
