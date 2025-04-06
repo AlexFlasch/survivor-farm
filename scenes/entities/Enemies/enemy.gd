@@ -34,7 +34,6 @@ func _process(delta: float) -> void:
 			if collision_info:
 				var collider: Object = collision_info.get_collider()
 				if collider == player:
-					print("Zombie collided with player!")
 					gm.set_player_health(gm.get_player_health() - damage)  # Use adjustable damage
 					# Apply bounce to the player based on damage value
 					if player.has_method("apply_bounce"):
