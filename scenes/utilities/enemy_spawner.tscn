@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b0imqsniiwk8a"]
 
-[ext_resource type="Script" uid="uid://c56uelclv2o8" path="res://scenes/levels/enemy_spawner.gd" id="1_gcuau"]
+[ext_resource type="Script" uid="uid://c56uelclv2o8" path="res://scenes/utilities/enemy_spawner.gd" id="1_gcuau"]
 [ext_resource type="Script" uid="uid://b4p8bgmd8wo27" path="res://scripts/EnemyData.gd" id="2_v4bvd"]
 [ext_resource type="PackedScene" uid="uid://dmirppl86plxh" path="res://scenes/entities/Enemies/Zombie/Zombie.tscn" id="3_2ikbp"]
 
