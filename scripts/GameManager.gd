@@ -126,8 +126,10 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		_toggle_pause()
 	if event is InputEventKey and event.is_action_pressed("ui_right"):
-		# toggle the time of day if the press the right arrow key
-		_toggle_time_of_day()
+		 # Only advance time manually when running in the editor.
+		if Engine.is_editor_hint:
+			_toggle_time_of_day()
+		# else: ignore manual toggling during runtime.
 
 func _toggle_pause() -> void:
 	if is_game_paused:

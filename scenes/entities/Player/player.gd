@@ -34,7 +34,6 @@ func _physics_process(delta: float) -> void:
 			bounce_velocity = Vector2.ZERO
 		return
 	
-	# ...existing input processing code...
 	var current_move_vector: Vector2 = Vector2.ZERO
 	
 	if not get_tree().root.get_node("GameManager").is_game_active():
