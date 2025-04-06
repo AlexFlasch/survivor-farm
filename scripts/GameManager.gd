@@ -14,7 +14,11 @@ signal player_died
 var player_health: int = 100
 var time_of_day: TimeOfDay = TimeOfDay.DAY
 var time_passed := 0.0
-var cycle_duration_in_minutes := 3.0
+@export var day_duration_in_minutes: float = 3.0
+@export var night_duration_in_minutes: float = 2.0
+
+# Initialize cycle_duration_in_minutes with day duration by default.
+var cycle_duration_in_minutes := day_duration_in_minutes
 var game_running   := false
 var is_game_paused := false
 var last_emitted_progress := -1.0
@@ -66,13 +70,20 @@ func _process(delta) -> void:
 		_toggle_time_of_day()
 
 func _toggle_time_of_day():
+	# Reset cycle progress
+	time_passed = 0
+	last_emitted_progress = 0
 	if time_of_day == TimeOfDay.DAY:
 		time_of_day = TimeOfDay.NIGHT
+		# Update duration to night duration when toggled manually or automatically.
+		cycle_duration_in_minutes = night_duration_in_minutes
 		emit_signal("time_of_day_changed", time_of_day)
 		print("Announcement: Day has ended, night has begun.")
 	else:
 		time_of_day = TimeOfDay.DAY
 		current_level += 1  # Increment level when night turns into day
+		# Update duration to day duration.
+		cycle_duration_in_minutes = day_duration_in_minutes
 		emit_signal("time_of_day_changed", time_of_day)
 		print("Announcement: Night has ended, day has started.")
 		print("Announcement: Level increased to %d" % current_level)
@@ -114,6 +125,9 @@ func handle_player_death() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		_toggle_pause()
+	if event is InputEventKey and event.is_action_pressed("ui_right"):
+		# toggle the time of day if the press the right arrow key
+		_toggle_time_of_day()
 
 func _toggle_pause() -> void:
 	if is_game_paused:

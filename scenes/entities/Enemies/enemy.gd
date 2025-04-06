@@ -10,7 +10,7 @@ var is_stunned: bool = false
 var stun_duration: float = 1.0  # seconds
 var stun_time_left: float = 0.0
 
-var player: CharacterBody2D
+var player
 @onready var gm: Node = get_tree().root.get_node("GameManager")
 
 func set_player(p: CharacterBody2D) -> void:
