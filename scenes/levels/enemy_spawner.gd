@@ -15,6 +15,9 @@ func _on_timer_timeout() -> void:
 	time += 1
 	for spawn in spawns:
 		if time >= spawn.time_start and time <= spawn.time_end:
+			# Check enemy eligibility based on current time of day
+			if (gm.time_of_day == gm.TimeOfDay.DAY and not spawn.spawn_day) or (gm.time_of_day == gm.TimeOfDay.NIGHT and not spawn.spawn_night):
+				continue
 			spawn.spawn_delay_counter += 1
 			if spawn.spawn_delay_counter >= spawn.enemy_spawn_delay:
 				spawn.spawn_delay_counter = 0
