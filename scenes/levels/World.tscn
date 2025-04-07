@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://dnuos85rsws6n"]
+[gd_scene load_steps=9 format=4 uid="uid://dnuos85rsws6n"]
 
 [ext_resource type="TileSet" uid="uid://bw74o4f1m48c5" path="res://resources/tilesets/FarmTileset.tres" id="1_v31nu"]
 [ext_resource type="PackedScene" uid="uid://byigjt33mk7ib" path="res://scenes/entities/Player/Player.tscn" id="2_sgwbd"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b0imqsniiwk8a" path="res://scenes/utilities/enemy_spawner.tscn" id="4_ps7a7"]
 [ext_resource type="Script" uid="uid://b4p8bgmd8wo27" path="res://scripts/EnemyData.gd" id="5_ku22y"]
 [ext_resource type="PackedScene" uid="uid://dmirppl86plxh" path="res://scenes/entities/Enemies/Zombie/Zombie.tscn" id="6_1mg1y"]
+[ext_resource type="PackedScene" uid="uid://dkrttbpcxtagk" path="res://scenes/levels/pause_menu.tscn" id="7_1mg1y"]
 
 [sub_resource type="Resource" id="Resource_nhw2q"]
 script = ExtResource("5_ku22y")
@@ -47,3 +48,7 @@ script = ExtResource("3_efo0y")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("4_ps7a7")]
 spawns = Array[ExtResource("5_ku22y")]([SubResource("Resource_nhw2q")])
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("7_1mg1y")]
