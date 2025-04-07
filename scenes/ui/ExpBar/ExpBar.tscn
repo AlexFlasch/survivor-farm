@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctwbjkct33uh8"]
+
+[ext_resource type="Texture2D" uid="uid://1b2jmxxs7n6t" path="res://assets/sprites/ui/panel-border-027.png" id="1_vrvlr"]
+[ext_resource type="Script" uid="uid://dldj2yv2lruoh" path="res://scenes/ui/ExpBar/exp_bar.gd" id="2_jl4ox"]
+[ext_resource type="Material" uid="uid://bflbouima4kg0" path="res://resources/materials/ProgressBar.material" id="3_jl4ox"]
+[ext_resource type="FontFile" uid="uid://bv4fh5m584j32" path="res://assets/fonts/slkscr.ttf" id="4_ivccb"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_nhdq6"]
+
+[node name="ExpBar" type="NinePatchRect"]
+custom_minimum_size = Vector2(0, 50)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_vrvlr")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 14
+patch_margin_top = 2
+patch_margin_right = 14
+patch_margin_bottom = 2
+script = ExtResource("2_jl4ox")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ProgressBar" type="TextureRect" parent="MarginContainer"]
+unique_name_in_owner = true
+material = ExtResource("3_jl4ox")
+layout_mode = 2
+texture = SubResource("CanvasTexture_nhdq6")
+
+[node name="ValueLabel" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ivccb")
+theme_override_font_sizes/font_size = 35
+horizontal_alignment = 1
+vertical_alignment = 1
