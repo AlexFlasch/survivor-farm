@@ -9,7 +9,6 @@ var move_speed: int                   = 100
 var move_vector: Vector2              = Vector2.ZERO
 var move_direction: DIRECTION         = DIRECTION.DOWN
 
-# New bounce variables
 var bounce_velocity: Vector2 = Vector2.ZERO
 var is_bouncing: bool = false
 var bounce_timer: float = 0.0
@@ -107,7 +106,6 @@ func die() -> void:
 		gm.handle_player_death() 
 
 func _on_health_changed(health: int) -> void:
-	print("Player notified: Health changed to %d" % health)
 	if health <= 0:
 		die()
 
