@@ -20,6 +20,7 @@ func _ready() -> void:
 	if not gm == null:
 		gm.set_player(self)
 		gm.connect("health_changed", Callable(self, "_on_health_changed"))
+		gm.connect("game_reset", Callable(self, "_on_game_reset"))
 
 func _physics_process(delta: float) -> void:
 	if not get_tree().root.get_node("GameManager").is_game_active():
@@ -109,8 +110,10 @@ func _on_health_changed(health: int) -> void:
 	if health <= 0:
 		die()
 
-# New method to initiate bounce
 func apply_bounce(bounce_force: Vector2) -> void:
 	bounce_velocity = bounce_force
 	is_bouncing = true
 	bounce_timer = BOUNCE_DURATION
+
+func _on_game_reset() -> void:
+	idle()

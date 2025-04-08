@@ -9,6 +9,7 @@ signal game_started
 signal game_stopped
 signal game_paused
 signal game_unpaused
+signal game_reset
 signal cycle_progress_changed(progress: float)
 signal player_died
 
@@ -16,6 +17,7 @@ var player_health: int = 100
 var player_max_health: int = 100
 var time_of_day: TimeOfDay = TimeOfDay.DAY
 var time_passed := 0.0
+
 @export var day_duration_in_minutes: float = 3.0
 @export var night_duration_in_minutes: float = 2.0
 
@@ -151,3 +153,15 @@ func _toggle_pause() -> void:
 
 func _ready() -> void:
 	start_game()
+
+func reset_game() -> void:
+	# Reset game variables to initial states
+	time_passed = 0.0
+	last_emitted_progress = -1.0
+	time_of_day = TimeOfDay.DAY
+	cycle_duration_in_minutes = day_duration_in_minutes
+	current_level = 1
+	player_health = 100
+	player_max_health = 100
+	is_game_paused = false
+	emit_signal("game_reset")

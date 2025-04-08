@@ -25,6 +25,14 @@ func set_health(new_health: float) -> void:
 func set_damage(new_damage: float) -> void:
 	base_damage = new_damage
 
+func _ready() -> void:
+	# Connect game_reset signal to despawn this enemy
+	if gm != null:
+		gm.connect("game_reset", Callable(self, "_on_game_reset"))
+
+func _on_game_reset() -> void:
+	queue_free()
+
 func _process(delta: float) -> void:
 	if not get_tree().root.get_node("GameManager").is_game_active():
 		return

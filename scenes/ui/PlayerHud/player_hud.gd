@@ -8,10 +8,6 @@ class_name PlayerHud extends PanelContainer
 @onready var exp_bar: ExpBar = %ExpBar
 @onready var gm: Node = get_tree().root.get_node("GameManager")
 
-func _ready() -> void:
-	if not gm == null:
-		var player_health = gm.get_player_health()
-
 func _process(delta: float) -> void:
 	if health_bar != null:
 		health_bar.current_value = gm.get_player_health()
