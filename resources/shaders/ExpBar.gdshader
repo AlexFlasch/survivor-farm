@@ -1,7 +1,7 @@
 
 shader_type canvas_item;
 
-uniform float progress : hint_range(0.0, 100.0, 0.1);
+uniform float progress : hint_range(0.0, 1.0, 0.01);
 uniform sampler2D noise : filter_nearest, repeat_enable;
 uniform vec2 tile_factor = vec2(0.0, 0.0);
 uniform vec2 tile_offset = vec2(0.0, 0.0);
@@ -22,7 +22,7 @@ void fragment() {
 	vec4 noise_tex = texture(noise, tiled_uv);
 
 	vec4 fill_color = mix(base_color, shine_color, noise_tex.r);
-	vec4 is_filled = UV.x < progress / 100.0 ? fill_color : vec4(0.0);
+	vec4 is_filled = UV.x < progress ? fill_color : vec4(0.0);
 
 	COLOR = is_filled;
 }

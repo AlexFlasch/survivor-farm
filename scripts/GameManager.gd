@@ -3,17 +3,21 @@ extends Node
 enum TimeOfDay { DAY, NIGHT }
 
 signal health_changed(health:int)
+signal max_health_changed(max_health:int)
 signal time_of_day_changed(new_time: TimeOfDay)
 signal game_started
 signal game_stopped
 signal game_paused
 signal game_unpaused
+signal game_reset
 signal cycle_progress_changed(progress: float)
 signal player_died
 
 var player_health: int = 100
+var player_max_health: int = 100
 var time_of_day: TimeOfDay = TimeOfDay.DAY
 var time_passed := 0.0
+
 @export var day_duration_in_minutes: float = 3.0
 @export var night_duration_in_minutes: float = 2.0
 
@@ -35,6 +39,14 @@ func get_player_health() -> int:
 
 func set_player_health(new_health: int) -> void:
 	_set_player_health(new_health)
+	
+func get_player_max_health() -> int:
+	return player_max_health
+	
+func set_player_max_health(new_max_health: int) -> void:
+	player_max_health = new_max_health
+	%HealthBar.max_value = player_max_health
+	emit_signal("max_health_changed", player_max_health)
 
 func get_time_passed() -> float:
 	return time_passed
@@ -141,3 +153,15 @@ func _toggle_pause() -> void:
 
 func _ready() -> void:
 	start_game()
+
+func reset_game() -> void:
+	# Reset game variables to initial states
+	time_passed = 0.0
+	last_emitted_progress = -1.0
+	time_of_day = TimeOfDay.DAY
+	cycle_duration_in_minutes = day_duration_in_minutes
+	current_level = 1
+	player_health = 100
+	player_max_health = 100
+	is_game_paused = false
+	emit_signal("game_reset")

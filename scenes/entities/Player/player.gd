@@ -9,7 +9,6 @@ var move_speed: int                   = 100
 var move_vector: Vector2              = Vector2.ZERO
 var move_direction: DIRECTION         = DIRECTION.DOWN
 
-# New bounce variables
 var bounce_velocity: Vector2 = Vector2.ZERO
 var is_bouncing: bool = false
 var bounce_timer: float = 0.0
@@ -21,6 +20,7 @@ func _ready() -> void:
 	if not gm == null:
 		gm.set_player(self)
 		gm.connect("health_changed", Callable(self, "_on_health_changed"))
+		gm.connect("game_reset", Callable(self, "_on_game_reset"))
 
 func _physics_process(delta: float) -> void:
 	if not get_tree().root.get_node("GameManager").is_game_active():
@@ -107,12 +107,13 @@ func die() -> void:
 		gm.handle_player_death() 
 
 func _on_health_changed(health: int) -> void:
-	print("Player notified: Health changed to %d" % health)
 	if health <= 0:
 		die()
 
-# New method to initiate bounce
 func apply_bounce(bounce_force: Vector2) -> void:
 	bounce_velocity = bounce_force
 	is_bouncing = true
 	bounce_timer = BOUNCE_DURATION
+
+func _on_game_reset() -> void:
+	idle()

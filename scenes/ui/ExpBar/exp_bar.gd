@@ -3,8 +3,7 @@ class_name ExpBar extends NinePatchRect
 @export var show_value: bool = true
 @export var current_value: int = 0
 @export var max_value: int = 100
-@export var percentage: float = 0.0
-@export var bar_material: ShaderMaterial = preload("res://resources/materials/ProgressBar.material")
+@export var bar_material: ShaderMaterial = preload("res://resources/materials/ProgressBar.material") as ShaderMaterial
 
 @onready var progress_rect :TextureRect = %ProgressBar
 @onready var value_label :Label = %ValueLabel
@@ -15,6 +14,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if progress_rect != null:
+		var percentage = float(current_value) / float(max_value)
 		progress_rect.material = bar_material
 		progress_rect.material.set('shader_parameter/progress', percentage)
 	
