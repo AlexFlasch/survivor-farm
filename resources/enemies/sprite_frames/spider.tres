@@ -1,93 +1,93 @@
 [gd_resource type="SpriteFrames" load_steps=24 format=3 uid="uid://b4min43h8pj25"]
 
-[ext_resource type="Texture2D" uid="uid://cosufoixenwon" path="res://assets/sprites/enemies/spider_spritesheet.png" id="1_cjpvl"]
+[ext_resource type="Texture2D" uid="uid://cosufoixenwon" path="res://assets/sprites/enemies/spider_spritesheet.png" id="1_ugvb4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vxlw4"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rmfkl"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8pxjf"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3sydi"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h2t46"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w16xd"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o1714"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(96, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c6f6l"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qv33q"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ffbf2"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k4h58"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xkrgk"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1i5q4"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_shl7m"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(96, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3olje"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(0, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_efw8l"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(16, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7dmqy"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(32, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1jdft"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(48, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rrw3d"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(0, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_26q1i"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(16, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kjdgo"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(32, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4a4uq"]
-atlas = ExtResource("1_cjpvl")
+atlas = ExtResource("1_ugvb4")
 region = Rect2(48, 32, 16, 16)
 
 [resource]
@@ -114,7 +114,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_o1714")
 }],
-"loop": true,
+"loop": false,
 "name": &"die_left",
 "speed": 5.0
 }, {
@@ -140,7 +140,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_shl7m")
 }],
-"loop": true,
+"loop": false,
 "name": &"die_right",
 "speed": 5.0
 }, {
