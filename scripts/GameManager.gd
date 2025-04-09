@@ -28,7 +28,7 @@ var is_game_paused := false
 var last_emitted_progress := -1.0
 var start_timer: Timer
 var current_level: int = 1  # New variable to track the current level
-var player: Node2D = null  # New variable to store the player reference
+var player = null  # New variable to store the player reference
 
 func _set_player_health(new_health: int) -> void:
 	player_health = new_health
@@ -164,4 +164,8 @@ func reset_game() -> void:
 	player_health = 100
 	player_max_health = 100
 	is_game_paused = false
+	game_running = true
 	emit_signal("game_reset")
+	# --- Added: reset player position ---
+	if player and player.has_method("reset_position"):
+		player.reset_position()

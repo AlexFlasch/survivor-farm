@@ -16,11 +16,14 @@ const BOUNCE_DURATION: float = 0.2
 
 @onready var gm: Node = get_tree().root.get_node("GameManager")
 
+var original_position: Vector2
+
 func _ready() -> void:
 	if not gm == null:
 		gm.set_player(self)
 		gm.connect("health_changed", Callable(self, "_on_health_changed"))
 		gm.connect("game_reset", Callable(self, "_on_game_reset"))
+	original_position = global_position
 
 func _physics_process(delta: float) -> void:
 	if not get_tree().root.get_node("GameManager").is_game_active():
@@ -117,3 +120,6 @@ func apply_bounce(bounce_force: Vector2) -> void:
 
 func _on_game_reset() -> void:
 	idle()
+
+func reset_position() -> void:
+	global_position = original_position  # reset player to original location
