@@ -8,7 +8,11 @@ extends Node2D
 # Reference to the GameManager node, which manages game state and player health.
 @onready var gm: Node = get_tree().root.get_node("GameManager")
 
+var all_enemy_sprites = ResourceLoader.list_directory('res://resources/enemies/sprite_frames')
 var time: int = 0
+
+func _ready() -> void:
+	gm.connect('time_of_day_changed', Callable(self, '_on_time_of_day_changed'))
 
 func _on_timer_timeout() -> void:
 	# Check if game is paused or not running; if so, do not spawn enemies.
@@ -42,6 +46,8 @@ func apply_enemy_setters(enemy, spawn) -> void:
 		enemy.set_health(spawn.base_health)
 	if enemy.has_method("set_damage"):
 		enemy.set_damage(spawn.base_damage)
+	if enemy.has_method("set_sprite_frames"):
+		enemy.set_sprite_frames(spawn.sprite_frames)
 			
 func get_random_position() -> Vector2:
 	var viewport_rect: Rect2 = get_viewport_rect()
@@ -69,3 +75,9 @@ func is_spawn_eligible(spawn) -> bool:
 	if (gm.time_of_day == gm.TimeOfDay.DAY and not spawn.spawn_day) or (gm.time_of_day == gm.TimeOfDay.NIGHT and not spawn.spawn_night):
 		return false
 	return true
+
+func _on_time_of_day_changed() -> void:
+	var random_sprite_index: int = randi_range(0, all_enemy_sprites.size() - 1)
+	var random_sprite: SpriteFrames = all_enemy_sprites[random_sprite_index]
+	
+	spawns = spawns.map(func (spawn): spawn.sprite_frames = random_sprite)
