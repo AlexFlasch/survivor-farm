@@ -20,6 +20,7 @@ func _on_pause():
 	$AnimationPlayer.play("blur")
 	
 func _on_player_died() -> void:
+	await get_tree().create_timer(3.0).timeout
 	# Show pause menu when the player dies
 	show()
 	$AnimationPlayer.play("blur")
