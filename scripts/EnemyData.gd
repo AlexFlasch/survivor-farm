@@ -14,6 +14,7 @@ class_name EnemyData
 @export var spawn_night: bool = true
 
 # --- Enemy Variables ---
+@export var sprite_frames: SpriteFrames
 @export var base_health: float = 1.0
 @export var base_damage: float = 1.0
 @export var base_speed: float = 20.0

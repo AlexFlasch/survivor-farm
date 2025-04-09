@@ -4,6 +4,10 @@ extends CharacterBody2D
 @export var base_damage: float = 10.0
 @export var base_health: float = 1.0
 @export var stop_distance: float = 0.0
+@export var sprite_frames: SpriteFrames = preload("res://resources/enemies/sprite_frames/pink_bat.tres")
+
+@onready var gm: Node = get_tree().root.get_node("GameManager")
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 # New variables for stunned state
 var is_stunned: bool = false
@@ -11,7 +15,6 @@ var stun_duration: float = 1.0  # seconds
 var stun_time_left: float = 0.0
 
 var player
-@onready var gm: Node = get_tree().root.get_node("GameManager")
 
 func set_player(p: CharacterBody2D) -> void:
 	player = p
@@ -24,6 +27,9 @@ func set_health(new_health: float) -> void:
 	
 func set_damage(new_damage: float) -> void:
 	base_damage = new_damage
+
+func set_sprite_frames(new_sprite_frames: SpriteFrames) -> void:
+	sprite_frames = new_sprite_frames
 
 func _ready() -> void:
 	# Connect game_reset signal to despawn this enemy
@@ -47,6 +53,14 @@ func _process(delta: float) -> void:
 	if player:
 		var direction: Vector2 = (player.global_position - global_position).normalized()
 		var distance_to_player: float = global_position.distance_to(player.global_position)
+		
+		# walking (mostly) right
+		# Vector2.angle() returns difference between the called vector's angle and Vector2.RIGHT (1, 0)
+		if abs(direction.angle()) <= PI / 2.0:
+			sprite.play('walk_right')
+		else:
+			sprite.play('walk_left')
+		
 		if distance_to_player > stop_distance:
 			var collision_info: KinematicCollision2D = move_and_collide(direction * base_speed * delta)
 			if collision_info:

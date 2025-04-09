@@ -28,6 +28,7 @@ var is_game_paused := false
 var last_emitted_progress := -1.0
 var start_timer: Timer
 var current_level: int = 1  # New variable to track the current level
+var current_sprite: SpriteFrames
 var player = null  # New variable to store the player reference
 
 func _set_player_health(new_health: int) -> void:
