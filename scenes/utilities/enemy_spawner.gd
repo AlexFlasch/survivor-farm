@@ -13,6 +13,7 @@ var time: int = 0
 
 func _ready() -> void:
 	gm.connect('time_of_day_changed', Callable(self, '_on_time_of_day_changed'))
+	gm.connect('game_reset', Callable(self, '_on_game_reset'))  # Added game_reset connection
 
 func _on_timer_timeout() -> void:
 	# Check if game is paused or not running; if so, do not spawn enemies.
@@ -81,3 +82,8 @@ func _on_time_of_day_changed() -> void:
 	var random_sprite: SpriteFrames = all_enemy_sprites[random_sprite_index]
 	
 	spawns = spawns.map(func (spawn): spawn.sprite_frames = random_sprite)
+
+func _on_game_reset() -> void:
+	time = 0  # Reset the timer
+	for spawn in spawns:
+		spawn.spawn_delay_counter = 0
