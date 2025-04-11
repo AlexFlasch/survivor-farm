@@ -105,13 +105,13 @@ func _toggle_time_of_day():
 			MoonPhase.WAXING_CRESCENT:
 				moon_phase = MoonPhase.WAXING_GIBBOUS
 			MoonPhase.WAXING_GIBBOUS:
-                if randf() < 0.01:
-                    if randf() < 0.5:
-                        moon_phase = MoonPhase.SUPER_MOON
-                    else:
-                        moon_phase = MoonPhase.BLOOD_MOON
-                else:
-                    moon_phase = MoonPhase.FULL
+				if randf() < 0.01:
+					if randf() < 0.5:
+						moon_phase = MoonPhase.SUPER_MOON
+					else:
+						moon_phase = MoonPhase.BLOOD_MOON
+				else:
+					moon_phase = MoonPhase.FULL
 		emit_signal("moon_phase_changed", moon_phase)
 		emit_signal("time_of_day_changed", time_of_day)
 		print("Announcement: Day has ended, night has begun. Moon phase is now %s." % str(moon_phase))

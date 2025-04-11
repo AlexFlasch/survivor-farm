@@ -1,7 +1,8 @@
 extends CanvasModulate
 
-const DAY_COLOR := Color(1, 1, 1, 1) # Normal brightness
-const NIGHT_COLOR := Color(0.2, 0.2, 0.5, 1) # Darker, bluish tint
+const DAY_COLOR := Color(1, 1, 1, 1)
+const NIGHT_COLOR := Color(0.2, 0.2, 0.5, 1)
+const SUPER_MOON_COLOR := Color(0.25, 0.1, 0, 1)
 
 var game_manager: Node = null
 
@@ -24,13 +25,21 @@ func _set_time_of_day(time_of_day):
 		game_manager.TimeOfDay.DAY:
 			self.color = DAY_COLOR
 		game_manager.TimeOfDay.NIGHT:
-			self.color = NIGHT_COLOR
+			if game_manager.moon_phase == game_manager.MoonPhase.BLOOD_MOON:
+				self.color = SUPER_MOON_COLOR
+			else:
+				self.color = NIGHT_COLOR
 
 func _update_color(progress: float):
 	var current_time = game_manager.time_of_day
 	if current_time == game_manager.TimeOfDay.DAY:
 		self.color = DAY_COLOR.lerp(NIGHT_COLOR, progress)
 	else:
-		# Adjust the progress to stay darker longer during the night
-		var adjusted_progress: float = (progress - 0.5) * 2.0 if progress > 0.5 else 0.0
-		self.color = NIGHT_COLOR.lerp(DAY_COLOR, adjusted_progress)
+		if game_manager.moon_phase == game_manager.MoonPhase.BLOOD_MOON:
+			var base_color: Color        = SUPER_MOON_COLOR
+			var adjusted_progress: float = (progress - 0.5) * 2.0 if progress > 0.5 else 0.0
+			self.color = base_color.lerp(DAY_COLOR, adjusted_progress)
+		else:
+			var adjusted_progress: float = (progress - 0.5) * 2.0 if progress > 0.5 else 0.0
+			self.color = NIGHT_COLOR.lerp(DAY_COLOR, adjusted_progress)
+
