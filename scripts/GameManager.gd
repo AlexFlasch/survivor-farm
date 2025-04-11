@@ -1,7 +1,7 @@
 extends Node
 
 enum TimeOfDay { DAY, NIGHT }
-enum MoonPhase { FULL, WANING_GIBBOUS, WANING_CRESCENT, NEW, WAXING_CRESCENT, WAXING_GIBBOUS }
+enum MoonPhase { FULL, SUPER_MOON, BLOOD_MOON, WANING_GIBBOUS, WANING_CRESCENT, NEW, WAXING_CRESCENT, WAXING_GIBBOUS }
 
 signal health_changed(health:int)
 signal max_health_changed(max_health:int)
@@ -92,9 +92,9 @@ func _toggle_time_of_day():
 		time_of_day = TimeOfDay.NIGHT
 		# Update duration to night duration.
 		cycle_duration_in_minutes = night_duration_in_minutes
-		# Cycle moon phase: FULL -> WANING_GIBBOUS -> WANING_CRESCENT -> NEW -> WAXING_CRESCENT -> WAXING_GIBBOUS -> FULL
+		# Cycle moon phase with a chance for a special full moon during WAXING_GIBBOUS.
 		match moon_phase:
-			MoonPhase.FULL:
+			MoonPhase.FULL, MoonPhase.SUPER_MOON, MoonPhase.BLOOD_MOON:
 				moon_phase = MoonPhase.WANING_GIBBOUS
 			MoonPhase.WANING_GIBBOUS:
 				moon_phase = MoonPhase.WANING_CRESCENT
@@ -105,8 +105,14 @@ func _toggle_time_of_day():
 			MoonPhase.WAXING_CRESCENT:
 				moon_phase = MoonPhase.WAXING_GIBBOUS
 			MoonPhase.WAXING_GIBBOUS:
-				moon_phase = MoonPhase.FULL
-		emit_signal("moon_phase_changed", moon_phase)  # Emit signal when moon phase changes
+                if randf() < 0.01:
+                    if randf() < 0.5:
+                        moon_phase = MoonPhase.SUPER_MOON
+                    else:
+                        moon_phase = MoonPhase.BLOOD_MOON
+                else:
+                    moon_phase = MoonPhase.FULL
+		emit_signal("moon_phase_changed", moon_phase)
 		emit_signal("time_of_day_changed", time_of_day)
 		print("Announcement: Day has ended, night has begun. Moon phase is now %s." % str(moon_phase))
 	else:
@@ -123,6 +129,9 @@ func get_cycle_progress() -> float:
 	along we are in the current day/night cycle.
 	"""
 	return time_passed / (cycle_duration_in_minutes * 60)
+
+func get_moon_phase() -> MoonPhase:
+	return moon_phase
 	
 func start_game() -> void:
 	if not game_running:
