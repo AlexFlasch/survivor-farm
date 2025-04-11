@@ -1,6 +1,7 @@
 extends Node
 
 enum TimeOfDay { DAY, NIGHT }
+enum MoonPhase { FULL, WANING_GIBBOUS, WANING_CRESCENT, NEW, WAXING_CRESCENT, WAXING_GIBBOUS }
 
 signal health_changed(health:int)
 signal max_health_changed(max_health:int)
@@ -12,6 +13,7 @@ signal game_unpaused
 signal game_reset
 signal cycle_progress_changed(progress: float)
 signal player_died
+signal moon_phase_changed(moon_phase: MoonPhase)
 
 var player_health: int = 100
 var player_max_health: int = 100
@@ -21,15 +23,15 @@ var time_passed := 0.0
 @export var day_duration_in_minutes: float = 3.0
 @export var night_duration_in_minutes: float = 2.0
 
-# Initialize cycle_duration_in_minutes with day duration by default.
 var cycle_duration_in_minutes := day_duration_in_minutes
 var game_running   := false
 var is_game_paused := false
 var last_emitted_progress := -1.0
 var start_timer: Timer
-var current_level: int = 1  # New variable to track the current level
+var current_level: int = 1
 var current_sprite: SpriteFrames
-var player = null  # New variable to store the player reference
+var player = null
+var moon_phase: MoonPhase = MoonPhase.FULL
 
 func _set_player_health(new_health: int) -> void:
 	player_health = new_health
@@ -88,14 +90,28 @@ func _toggle_time_of_day():
 	last_emitted_progress = 0
 	if time_of_day == TimeOfDay.DAY:
 		time_of_day = TimeOfDay.NIGHT
-		# Update duration to night duration when toggled manually or automatically.
+		# Update duration to night duration.
 		cycle_duration_in_minutes = night_duration_in_minutes
+		# Cycle moon phase: FULL -> WANING_GIBBOUS -> WANING_CRESCENT -> NEW -> WAXING_CRESCENT -> WAXING_GIBBOUS -> FULL
+		match moon_phase:
+			MoonPhase.FULL:
+				moon_phase = MoonPhase.WANING_GIBBOUS
+			MoonPhase.WANING_GIBBOUS:
+				moon_phase = MoonPhase.WANING_CRESCENT
+			MoonPhase.WANING_CRESCENT:
+				moon_phase = MoonPhase.NEW
+			MoonPhase.NEW:
+				moon_phase = MoonPhase.WAXING_CRESCENT
+			MoonPhase.WAXING_CRESCENT:
+				moon_phase = MoonPhase.WAXING_GIBBOUS
+			MoonPhase.WAXING_GIBBOUS:
+				moon_phase = MoonPhase.FULL
+		emit_signal("moon_phase_changed", moon_phase)  # Emit signal when moon phase changes
 		emit_signal("time_of_day_changed", time_of_day)
-		print("Announcement: Day has ended, night has begun.")
+		print("Announcement: Day has ended, night has begun. Moon phase is now %s." % str(moon_phase))
 	else:
 		time_of_day = TimeOfDay.DAY
 		current_level += 1  # Increment level when night turns into day
-		# Update duration to day duration.
 		cycle_duration_in_minutes = day_duration_in_minutes
 		emit_signal("time_of_day_changed", time_of_day)
 		print("Announcement: Night has ended, day has started.")
@@ -166,6 +182,7 @@ func reset_game() -> void:
 	player_max_health = 100
 	is_game_paused = false
 	game_running = true
+	moon_phase = MoonPhase.FULL
 	emit_signal("game_reset")
 	# --- Added: reset player position ---
 	if player and player.has_method("reset_position"):
