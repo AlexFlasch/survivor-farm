@@ -32,6 +32,7 @@ var current_level: int = 1
 var current_sprite: SpriteFrames
 var player = null
 var moon_phase: MoonPhase = MoonPhase.FULL
+var ground: Node = null
 
 func _set_player_health(new_health: int) -> void:
 	player_health = new_health
@@ -62,6 +63,12 @@ func set_current_level(level: int) -> void:
 
 func set_player(p: Node2D) -> void:
 	player = p
+
+func set_ground(ground_node: Node) -> void:
+	ground = ground_node
+
+func get_ground() -> Node:
+	return ground
 
 func is_game_active() -> bool:
 	return game_running and not is_game_paused
