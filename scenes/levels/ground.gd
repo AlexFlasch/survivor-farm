@@ -1,23 +1,19 @@
 extends TileMapLayer
 
-@onready var game_manager: Node = get_tree().root.get_node("GameManager") 
+@export var grid_color : Color = Color(1, 1, 1, 1)
+@onready var grid_spacing : int = get_tile_set().get_tile_size().x
 
-var cell_position: Vector2
-
-func _ready() -> void:
-	game_manager.set_ground(self)
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MouseButton.MOUSE_BUTTON_LEFT and event.pressed:
-		var mouse_position: Vector2 = get_global_mouse_position()
-		var local_position: Vector2 = map_to_local(mouse_position)
-		cell_position = local_to_map(local_position)
-		
 func _draw() -> void:
-	if cell_position:
-		var rect_position: Vector2i = local_to_map(cell_position)
-		var rect_size: Vector2      = Vector2(16, 16)
-		draw_rect(Rect2(rect_position, rect_size), Color(1, 1, 0), false)
+	var bounds: Rect2i = get_used_rect() 
+	for x in range(bounds.position.x, bounds.position.x + bounds.size.x + 1):
+		var start: Vector2 = Vector2(x * grid_spacing, bounds.position.y * grid_spacing)
+		var end: Vector2   = Vector2(x * grid_spacing, (bounds.position.y + bounds.size.y) * grid_spacing)
+		draw_line(start, end, grid_color)
 
+	for y in range(bounds.position.y, bounds.position.y + bounds.size.y + 1):
+		var start: Vector2 = Vector2(bounds.position.x * grid_spacing, y * grid_spacing)
+		var end: Vector2   = Vector2((bounds.position.x + bounds.size.x) * grid_spacing, y * grid_spacing)
+		draw_line(start, end, grid_color)
+		
 func _process(delta: float) -> void:
 	queue_redraw()
