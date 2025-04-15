@@ -42,4 +42,3 @@ func _update_color(progress: float):
 		else:
 			var adjusted_progress: float = (progress - 0.5) * 2.0 if progress > 0.5 else 0.0
 			self.color = NIGHT_COLOR.lerp(DAY_COLOR, adjusted_progress)
-
