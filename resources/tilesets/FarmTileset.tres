@@ -318,5 +318,5 @@ texture = ExtResource("1_8krs4")
 physics_layer_0/collision_layer = 16
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Farmland"
-terrain_set_0/terrain_0/color = Color(1, 0.147914, 0.791606, 1)
+terrain_set_0/terrain_0/color = Color(0.614496, 7.79718e-06, 0.411711, 1)
 sources/0 = SubResource("TileSetAtlasSource_sgwbd")

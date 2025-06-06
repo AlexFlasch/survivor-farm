@@ -16,7 +16,7 @@ func _input(event: InputEvent) -> void:
 	# Handle mouse clicks
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if hovered_cell.x >= 0 and hovered_cell.y >= 0:
-			print("Cell clicked: ", hovered_cell)
+			set_cells_terrain_connect([hovered_cell], 0, 0, false)
 
 func _draw() -> void:
 	var bounds: Rect2i = get_used_rect()
@@ -39,3 +39,22 @@ func _draw() -> void:
 
 func _process(delta: float) -> void:
 	queue_redraw()
+
+func _ready() -> void:
+	# Print out terrain sets and terrains when the scene loads
+	print_terrain_info()
+
+func print_terrain_info() -> void:
+	var tileset = get_tile_set()
+	if not tileset:
+		print("No TileSet assigned")
+		return
+		
+	print("======= TERRAIN SETS =======")
+	for terrain_set_id in range(tileset.get_terrain_sets_count()):
+		print("Terrain Set ", terrain_set_id, ":")
+		
+		for terrain_id in range(tileset.get_terrains_count(terrain_set_id)):
+			var terrain_name = tileset.get_terrain_name(terrain_set_id, terrain_id)
+			print("  Terrain ", terrain_id, ": ", terrain_name)
+	print("===========================")
