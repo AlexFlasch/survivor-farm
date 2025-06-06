@@ -12,6 +12,11 @@ func _input(event: InputEvent) -> void:
 		# Convert the mouse position to cell coordinates.
 		hovered_cell.x = int(local_mouse_pos.x / grid_spacing)
 		hovered_cell.y = int(local_mouse_pos.y / grid_spacing)
+	
+	# Handle mouse clicks
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if hovered_cell.x >= 0 and hovered_cell.y >= 0:
+			print("Cell clicked: ", hovered_cell)
 
 func _draw() -> void:
 	var bounds: Rect2i = get_used_rect()
