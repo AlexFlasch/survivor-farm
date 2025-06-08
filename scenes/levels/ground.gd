@@ -23,7 +23,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if hovered_cell.x >= 0 and hovered_cell.y >= 0:
 			# Check if we can place a tile here
-			if is_border(hovered_cell):
+			if is_not_border(hovered_cell):
 				# only place if we haven't placed here yet
 				if not placed_cells.has(hovered_cell):
 					set_cells_terrain_connect([hovered_cell], terrain_set_id, terrain_id, false)
@@ -33,9 +33,9 @@ func _input(event: InputEvent) -> void:
 			else:
 				print("Cannot place tile on border at ", hovered_cell)
 
-func is_border(cell: Vector2i) -> bool:
+func is_not_border(cell: Vector2i) -> bool:
 	# Check if there's a border at this position
-	if borders_layer and borders_layer.get_cell_source_id(cell):
+	if borders_layer and borders_layer.get_cell_source_id(cell) < 0:
 		return true
 	return false
 
@@ -50,7 +50,7 @@ func _draw() -> void:
 		var end: Vector2   = Vector2((bounds.position.x + bounds.size.x) * grid_spacing, y * grid_spacing)
 		draw_line(start, end, grid_color)
 	if hovered_cell.x >= 0 and hovered_cell.y >= 0:
-		var can_place: bool  = is_border(hovered_cell)
+		var can_place: bool  = is_not_border(hovered_cell)
 		var hover_col: Color = hover_color if can_place else hover_invalid_color
 		var rect: Rect2      = Rect2(hovered_cell.x * grid_spacing, hovered_cell.y * grid_spacing,
 		grid_spacing, grid_spacing)
