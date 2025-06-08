@@ -32,7 +32,8 @@ var current_level: int = 1
 var current_sprite: SpriteFrames
 var player = null
 var moon_phase: MoonPhase = MoonPhase.FULL
-var ground: Node = null
+var ground: TileMapLayer = null
+var borders: TileMapLayer = null # Reference to the borders layer
 
 func _set_player_health(new_health: int) -> void:
 	player_health = new_health
@@ -64,11 +65,19 @@ func set_current_level(level: int) -> void:
 func set_player(p: Node2D) -> void:
 	player = p
 
-func set_ground(ground_node: Node) -> void:
+func set_ground(ground_node: TileMapLayer) -> void:
 	ground = ground_node
 
-func get_ground() -> Node:
+func get_ground() -> TileMapLayer:
 	return ground
+
+# New method to set the borders reference
+func set_borders(borders_node: TileMapLayer) -> void:
+	borders = borders_node
+
+# New method to get the borders reference
+func get_borders() -> TileMapLayer:
+	return borders
 
 func is_game_active() -> bool:
 	return game_running and not is_game_paused
