@@ -8,6 +8,8 @@ size = Vector2(21.4286, 21.4286)
 
 [node name="Zombie" type="CharacterBody2D"]
 scale = Vector2(0.28, 0.28)
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("1_s81de")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

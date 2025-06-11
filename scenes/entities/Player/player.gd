@@ -18,6 +18,22 @@ const BOUNCE_DURATION: float = 0.2
 
 var original_position: Vector2
 
+#Attacks
+var magicProjectile = preload("res://scenes/entities/Player/Attack/magic_projectile.tscn")
+
+#AttackNodes
+@onready var magicProjectileTimer = get_node("%MagicProjectileTimer")
+@onready var magicProjectileAttackTimer = get_node("%MagicProjectileAttackTimer")
+
+#MagicProjectile
+var magic_projectile_ammo = 0
+var magic_projectile_base_ammo = 1
+var magic_projectile_attack_speed = 1.5
+var magic_projectile_level = 1
+
+#Enemy Related
+var enemy_close = []
+
 func _ready() -> void:
 	if not gm == null:
 		gm.set_player(self)
@@ -123,3 +139,47 @@ func _on_game_reset() -> void:
 
 func reset_position() -> void:
 	global_position = original_position  # reset player to original location
+	
+func attack() -> void:
+	if (magic_projectile_level > 0):
+		magicProjectileTimer.wait_time = magic_projectile_attack_speed
+		if magicProjectileTimer.is_stopped():
+			magicProjectileTimer.start()
+
+
+func _on_magic_projectile_timer_timeout() -> void:
+	magic_projectile_ammo += magic_projectile_base_ammo
+	magicProjectileAttackTimer.start()
+
+
+func _on_magic_projectile_attack_timer_timeout() -> void:
+	if (magic_projectile_ammo > 0):
+		var magic_projectile_attack = magicProjectile.instantiate()
+		magic_projectile_attack.position = get_parent().position
+		magic_projectile_attack.target = get_random_target()
+		magic_projectile_attack.level = magic_projectile_level
+		add_child(magic_projectile_attack)
+		# undo magic_projectile_ammo -= 1
+		if (magic_projectile_ammo > 0):
+			magicProjectileAttackTimer.start()
+		else:
+			magicProjectileAttackTimer.stop()
+				
+		
+func get_random_target():
+	if enemy_close.size() > 0:
+		return enemy_close.pick_random().global_position
+	else:
+		return Vector2.UP
+
+
+
+func _on_enemy_detection_area_body_entered(body: Node2D) -> void:
+	attack() # todo clear this
+	if not enemy_close.has(body):
+		enemy_close.append(body)
+
+
+func _on_enemy_detection_area_body_exited(body: Node2D) -> void:
+	if enemy_close.has(body):
+		enemy_close.erase(body)

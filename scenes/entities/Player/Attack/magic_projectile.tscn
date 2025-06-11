@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://udj7x6j2g7md"]
+
+[ext_resource type="Script" uid="uid://dkh6y535r2rhb" path="res://scenes/entities/Player/Attack/magic_projectile.gd" id="1_yadir"]
+[ext_resource type="Texture2D" uid="uid://cc8on5u302cky" path="res://assets/sprites/ui/panel-024.png" id="2_b6lh5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pfb8g"]
+
+[node name="MagicProjectile" type="Area2D" groups=["attack"]]
+light_mask = 4
+scale = Vector2(0.3, 0.3)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_yadir")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_b6lh5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.6, 0.6)
+shape = SubResource("RectangleShape2D_pfb8g")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="snd_play" type="AudioStreamPlayer" parent="."]
