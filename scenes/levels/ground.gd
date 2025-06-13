@@ -71,4 +71,3 @@ func _ready() -> void:
 				if child.get_script() and child.get_script().resource_path.ends_with("borders.gd"):
 					borders_layer = child
 					break
-

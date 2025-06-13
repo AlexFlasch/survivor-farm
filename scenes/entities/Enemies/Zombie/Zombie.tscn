@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://dmirppl86plxh"]
+[gd_scene load_steps=5 format=3 uid="uid://dmirppl86plxh"]
 
 [ext_resource type="Script" uid="uid://dl6u70w46q4ci" path="res://scenes/entities/Enemies/enemy.gd" id="1_s81de"]
 [ext_resource type="SpriteFrames" uid="uid://cf2wfsyvuw0ii" path="res://resources/enemies/sprite_frames/pink_bat.tres" id="2_s81de"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5xle"]
 size = Vector2(21.4286, 21.4286)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s81de"]
 
 [node name="Zombie" type="CharacterBody2D"]
 scale = Vector2(0.28, 0.28)
@@ -18,5 +20,18 @@ sprite_frames = ExtResource("2_s81de")
 animation = &"walk_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 5
 position = Vector2(-4.25747e-07, 4.25747e-07)
 shape = SubResource("RectangleShape2D_o5xle")
+
+[node name="HitArea" type="Area2D" parent="."]
+light_mask = 5
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+light_mask = 5
+scale = Vector2(0.65, 0.65)
+shape = SubResource("RectangleShape2D_s81de")
+
+[connection signal="area_entered" from="HitArea" to="." method="_on_hit_area_area_entered"]

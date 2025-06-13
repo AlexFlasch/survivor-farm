@@ -162,6 +162,10 @@ func _on_magic_projectile_attack_timer_timeout() -> void:
 		# undo magic_projectile_ammo -= 1
 		if (magic_projectile_ammo > 0):
 			magicProjectileAttackTimer.start()
+			# clear projectile of player as parent
+			# var new_parent = get_parent().get_parent()
+			# get_parent().remove_child(magic_projectile_attack)
+			# new_parent.add_child(magic_projectile_attack)
 		else:
 			magicProjectileAttackTimer.stop()
 				

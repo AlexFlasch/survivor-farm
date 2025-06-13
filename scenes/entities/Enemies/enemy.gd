@@ -25,6 +25,9 @@ func set_speed(new_speed: float) -> void:
 func set_health(new_health: float) -> void:
 	base_health = new_health
 	
+func get_health() -> float:
+	return base_health
+	
 func set_damage(new_damage: float) -> void:
 	base_damage = new_damage
 
@@ -42,6 +45,9 @@ func _on_game_reset() -> void:
 func _process(delta: float) -> void:
 	if not get_tree().root.get_node("GameManager").is_game_active():
 		return
+		
+	if get_health() <= 0:
+		queue_free()
 
 	# Skip movement if stunned
 	if is_stunned:
@@ -75,3 +81,9 @@ func _process(delta: float) -> void:
 					is_stunned = true
 					return
 			global_position += direction * base_speed * delta
+			
+
+
+func _on_hit_area_area_entered(area: Area2D) -> void:
+	print_debug(area)
+	set_health(get_health() - 2)
