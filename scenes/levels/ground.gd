@@ -7,7 +7,6 @@ extends TileMapLayer
 @export var terrain_id     : int = 0
 
 @onready var grid_spacing : int = get_tile_set().get_tile_size().x
-@onready var GameManager: Node = get_tree().root.get_node("GameManager")
 var hovered_cell: Vector2i = Vector2i(-1, -1)
 
 # Dictionary mapping cell coordinates to the terrain (set, id) you placed there
