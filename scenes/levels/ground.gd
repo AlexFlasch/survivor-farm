@@ -32,6 +32,7 @@ func _input(event: InputEvent) -> void:
 						var plant = plant_scene.instantiate()
 						var cell_center = map_to_local(hovered_cell) + Vector2(grid_spacing, grid_spacing) * 0.5
 						plant.position = cell_center
+						plant.z_index = 0
 						get_parent().add_child(plant)
 						planted_cells[hovered_cell] = plant
 					else:
