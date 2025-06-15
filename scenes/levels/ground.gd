@@ -5,7 +5,6 @@ extends TileMapLayer
 @export var hover_invalid_color: Color = Color(1, 0, 0, 0.5) # Red color for invalid placement
 @export var terrain_set_id : int = 0
 @export var terrain_id     : int = 0
-@export var plant_scene: PackedScene = preload("res://scenes/entities/Plants/plant_01.tscn")
 
 @onready var grid_spacing : int = get_tile_set().get_tile_size().x
 @onready var GameManager: Node = get_tree().root.get_node("GameManager")
@@ -29,12 +28,17 @@ func _input(event: InputEvent) -> void:
 				# If cell is already tilled, try to plant
 				if placed_cells.has(hovered_cell):
 					if not planted_cells.has(hovered_cell):
-						var plant = plant_scene.instantiate()
-						var cell_center = map_to_local(hovered_cell) + Vector2(grid_spacing, grid_spacing) * 0.5
-						plant.position = cell_center
-						plant.z_index = 0
-						get_parent().add_child(plant)
-						planted_cells[hovered_cell] = plant
+						var selected_plant_key = GameManager.selected_plant
+						if GameManager.plant_scenes.has(selected_plant_key):
+							var plant_scene = GameManager.plant_scenes[selected_plant_key]
+							var plant = plant_scene.instantiate()
+							var cell_center = map_to_local(hovered_cell) + Vector2(grid_spacing, grid_spacing) * 0.5
+							plant.position = cell_center
+							plant.z_index = 0
+							get_parent().add_child(plant)
+							planted_cells[hovered_cell] = plant
+						else:
+							print("Selected plant scene not found: ", selected_plant_key)
 					else:
 						print("Already have plant at ", hovered_cell)
 					return

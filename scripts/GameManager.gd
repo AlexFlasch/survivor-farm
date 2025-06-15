@@ -35,6 +35,16 @@ var moon_phase: MoonPhase = MoonPhase.FULL
 var ground: TileMapLayer = null
 var borders: TileMapLayer = null # Reference to the borders layer
 
+# --- Plant selection system ---
+# Dictionary of all plant scenes (add more as you create them)
+var plant_scenes := {
+	"plant_01": preload("res://scenes/entities/Plants/plant_01.tscn")
+}
+# Currently selected plant key
+var selected_plant: String = "plant_01"
+# List of plant keys the player currently has access to
+var available_plants: Array = ["plant_01"]
+
 func _set_player_health(new_health: int) -> void:
 	player_health = new_health
 	emit_signal("health_changed", player_health)
