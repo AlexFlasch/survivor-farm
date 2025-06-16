@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bchbb6umrsnja"]
+
+[ext_resource type="Script" uid="uid://d1hr03n6fyws8" path="res://scenes/entities/Plants/plant_01.gd" id="1_7toe2"]
+[ext_resource type="SpriteFrames" uid="uid://digjvskbepjjf" path="res://resources/plants/plant_01.tres" id="1_v0ggs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v0ggs"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_7toe2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_v0ggs")
+animation = &"seed"
+offset = Vector2(-8, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.75, 0.75)
+shape = SubResource("CircleShape2D_v0ggs")
