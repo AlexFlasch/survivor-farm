@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://3cnsx5p0thxx"]
+
+[ext_resource type="Script" uid="uid://q2fteainkwqc" path="res://scenes/entities/Collectibles/Experience/experience.gd" id="1_m7nn0"]
+[ext_resource type="Texture2D" uid="uid://dpkgiolsie854" path="res://assets/icon.svg" id="1_oih1j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tywkk"]
+radius = 16.1245
+
+[node name="Experience" type="CharacterBody2D"]
+script = ExtResource("1_m7nn0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_oih1j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tywkk")
