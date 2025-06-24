@@ -57,6 +57,8 @@ move_down={
 2d_physics/layer_3="enemies"
 2d_physics/layer_4="enemy_projectiles"
 2d_physics/layer_5="terrain"
+2d_physics/layer_6="collectibles"
+2d_physics/layer_7="plants"
 
 [rendering]
 
