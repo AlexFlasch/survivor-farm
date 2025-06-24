@@ -11,7 +11,7 @@ var state: PlantState = PlantState.SEED
 func spawn_collectible():
 	if collectible_scene == null:
 		return
-	var collectible: Node = collectible_scene.instantiate()
+	var collectible: Node2D = collectible_scene.instantiate() as Node2D
 	add_child(collectible)
 
 	# Spawn at a random distance and direction from the plant
