@@ -60,12 +60,12 @@ func set_state(new_state: PlantState) -> void:
 				spawn_collectible_loop()
 
 func spawn_collectible_loop() -> void:
-	# Spawns a collectible every collectible_interval seconds indefinitely
-	await get_tree().create_timer(collectible_interval, false).timeout
-	if not spawn_loop_running:
-		return
-	spawn_collectible()
-	spawn_collectible_loop()
+	# Spawns a collectible every collectible_interval seconds indefinitely using an iterative approach
+	while spawn_loop_running:
+		await get_tree().create_timer(collectible_interval, false).timeout
+		if not spawn_loop_running:
+			break
+		spawn_collectible()
 
 func _ready():
 	animated_sprite = $AnimatedSprite2D
