@@ -9,11 +9,16 @@ extends CharacterBody2D
 @export var pop_bounce_x_range: Vector2 = Vector2(-10, 10)
 @export var pop_bounce_y_range: Vector2 = Vector2(5, 10)
 
+@export var sprout_time: float = 10.0
+@export var mature_time: float = 20.0
+@export var collectible_interval: float = 20.0
+
 var animated_sprite: AnimatedSprite2D
 var rng = RandomNumberGenerator.new()
 
 enum PlantState { SEED, SPROUT, MATURE }
 var state: PlantState = PlantState.SEED
+var spawn_loop_running: bool = false
 
 func spawn_collectible() -> void:
 	if collectible_scene == null:
@@ -43,23 +48,29 @@ func set_state(new_state: PlantState) -> void:
 	match state:
 		PlantState.SEED:
 			animated_sprite.play("seed")
+			spawn_loop_running = false
 		PlantState.SPROUT:
 			animated_sprite.play("sprout")
+			spawn_loop_running = false
 		PlantState.MATURE:
 			animated_sprite.play("mature")
 			spawn_collectible()
-			spawn_collectible_loop()
+			if not spawn_loop_running:
+				spawn_loop_running = true
+				spawn_collectible_loop()
 
 func spawn_collectible_loop() -> void:
-	# Spawns a collectible every 20 seconds indefinitely
-	while true:
-		await get_tree().create_timer(20.0, false).timeout
-		spawn_collectible()
+	# Spawns a collectible every collectible_interval seconds indefinitely
+	await get_tree().create_timer(collectible_interval, false).timeout
+	if not spawn_loop_running:
+		return
+	spawn_collectible()
+	spawn_collectible_loop()
 
 func _ready():
 	animated_sprite = $AnimatedSprite2D
 	set_state(PlantState.SEED)
-	await get_tree().create_timer(10.0, false).timeout
+	await get_tree().create_timer(sprout_time, false).timeout
 	set_state(PlantState.SPROUT)
-	await get_tree().create_timer(20.0, false).timeout
+	await get_tree().create_timer(mature_time, false).timeout
 	set_state(PlantState.MATURE)
