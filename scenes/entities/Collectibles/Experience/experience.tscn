@@ -8,6 +8,7 @@ radius = 16.1245
 
 [node name="Experience" type="CharacterBody2D"]
 script = ExtResource("1_m7nn0")
+collision_layer = 32
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.05, 0.05)

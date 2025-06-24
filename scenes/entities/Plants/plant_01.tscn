@@ -7,6 +7,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_v0ggs"]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 64
 script = ExtResource("1_7toe2")
 collectible_scene = ExtResource("2_qekth")
 
