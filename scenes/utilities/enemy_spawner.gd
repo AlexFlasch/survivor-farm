@@ -33,6 +33,10 @@ func _on_timer_timeout() -> void:
 				while counter < spawn.enemy_num:
 					var enemy: Node2D = enemy_instance.instantiate()
 					enemy.set_position(get_random_position())
+					if (time == 50):
+						enemy.apply_scale((Vector2(5,5)))
+						enemy.set_damage(30)
+						enemy.set_health(25)
 					apply_enemy_setters(enemy, spawn)
 					get_tree().root.add_child(enemy)
 					counter += 1
